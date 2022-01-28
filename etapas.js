@@ -7,7 +7,7 @@ let etapas =[
                 numero: '38111',
                 nome: "Christianne Varão",
                 partido: "PEN",
-                foto: [
+                fotos: [
                     {url:"candidato-1.jpg", legenda: "Vereador"}
                 ]
             },
@@ -15,7 +15,7 @@ let etapas =[
                 numero: '44444',
                 nome: "Maria José",
                 partido: "PQP",
-                foto: [
+                fotos: [
                     {url:"candidato-2.jpg", legenda: "Vereador"}
                 ]
             },

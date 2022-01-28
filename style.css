@@ -71,7 +71,7 @@ body{
 
 .d-1{
     flex: 1;
-    
+    display: flex;
 }
 
 .d-1-left{
@@ -79,7 +79,6 @@ body{
     display: flex;
     flex-direction: column;
     padding-left: 20px;
-    background-color: blue;
     
 }
 
@@ -130,7 +129,8 @@ body{
 }
 
 .d-1-image.small{
-    width: 80%;
+    width: 60%;
+    height: 50%;
     font-size: 12px;
 }
 .d-1-image img{
@@ -141,4 +141,19 @@ body{
     font-size: 14px;
     border-top: 2px solid #000;
     padding-left: 10px;
+}
+.aviso--grande{
+    font-size: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+.aviso--gigante{
+    font-size: 80px;
+    text-align: center;
+    font-weight: bold;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 }

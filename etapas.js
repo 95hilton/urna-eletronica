@@ -5,45 +5,45 @@ let etapas =[
         candidatos: [ 
              {
                 numero: '38111',
-                nome: "Christianne Varão",
-                partido: "PEN",
+                nome: "Marcia da Silva",
+                partido: "PAR",
                 legenda: '38',
                 fotos: [
-                    {url:"candidato-1.jpg", legenda: "Vereador"}
+                    {url:"cv1.jpg", legenda: "Vereador"}
                 ]
             },
             {
                 numero: '44444',
-                nome: "Maria José",
+                nome: "Augusto Liberato",
                 partido: "PQP",
                 fotos: [
-                    {url:"candidato-2.jpg", legenda: "Vereador"}
+                    {url:"cv4.jpg", legenda: "Vereador"}
                 ]
             },
         ]
     },
     {
-        titulo: "PREFEITO",
+        titulo: "PREFEITO(A)",
         numeros: 2,
         candidatos: [ 
              {
                 numero: '10',
-                nome: "Fernadooo",
+                nome: "José Maria",
                 partido: "PEN",
-                vice: "Cic",
+                vice: "Ciro",
                 fotos: [
-                    {url:"candidato-1.jpg", legenda: "Prefeito"},
-                    {url:"candidato-2.jpg", legenda: "Vice-Prefeito", small: true}
+                    {url:"cp3.jpg", legenda: "Prefeito"},
+                    {url:"v1.jpg", legenda: "Vice-Prefeito", small: true}
                 ]
             },
             {
-                numero: '11',
-                nome: "Perfeito",
+                numero: '44',
+                nome: "José das Couves",
                 partido: "PQP",
-                vice: "Cic",
+                vice: "Marcio da Silva",
                 fotos: [
-                    {url:"candidato-1.jpg", legenda: "Prefeito"},
-                    {url:"candidato-2.jpg", legenda: "Vice-Prefeito", small: true}
+                    {url:"cp1.jpg", legenda: "Prefeito"},
+                    {url:"v2.jpg", legenda: "Vice-Prefeito", small: true}
                 ]
             },
         

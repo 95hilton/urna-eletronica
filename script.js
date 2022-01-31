@@ -13,10 +13,49 @@ let votoBranco = false;
 let votoNulo = false;
 let votos = [];
 let candidato = '';
+let etapa = etapas[etapaAtual];
+const beepDigitos = new Audio('sounds/beep_digits.wav');
+const beepCorrige = new Audio('sounds/beep_corrige.wav');
+const beepConfirma = new Audio('sounds/beep_confirma.wav');
+
+    //Reproduz beep do teclado
+function reproduzDigitos(){
+    const playDigitos = beepDigitos.play();
+    if (playDigitos !== undefined) {
+        playDigitos.then(_ => {
+        })
+        .catch(error => {
+            console.log('erro ao reproduzir beep',error)
+        });
+      }
+}
+
+    //Reproduz beep do teclado
+    function reproduzCorrige(){
+        const playCorrige = beepCorrige.play();
+        if (playCorrige !== undefined) {
+            playCorrige.then(_ => {
+            })
+            .catch(error => {
+                console.log('erro ao reproduzir beep',error)
+            });
+          }
+    }
+    //Reproduz beep do botão confirma
+function reproduzConfirma(){
+    const playConfirma = beepConfirma.play();
+    if (playConfirma !== undefined) {
+        playConfirma.then(_ => {
+        })
+        .catch(error => {
+            console.log('erro ao reproduzir beep',error)
+        });
+      }
+}
 
 //Função para iniciar votação
 function comecarEtapa(){
-    let etapa = etapas[etapaAtual];
+    etapa = etapas[etapaAtual];
     let numeroHtml ='';
     numero = '';
     votoBranco = false;
@@ -24,11 +63,11 @@ function comecarEtapa(){
 
     for (let i=0;i<etapa.numeros;i++){
         if (i === 0){
-            numeroHtml+= '<div class="numero pisca"></div>';    
+            numeroHtml+= '<div class="numero pisca"></div>';
         }else{
             numeroHtml+= '<div class="numero"></div>';
         }
-      
+
     }
 
     seuVotoPara.style.display= 'none';
@@ -50,19 +89,21 @@ function atualizaInterface(){
         }
     });
 
-    
+
     // Se encontrar um canditato com o número digitado, exibe os dados
    if(parseInt(candidato.length) > 0){
         candidato = candidato[0];
         seuVotoPara.style.display = 'block';
         aviso.style.display = 'block';
-        descricao.innerHTML = `Nome: ${candidato.nome}<br/>Partido: ${candidato.partido}`
+        
         let fotosHtml = '';
         for(let i in candidato.fotos){
             if(candidato.fotos[i].small){
                 fotosHtml +=`<div class="d-1-image small"><img src="images/${candidato.fotos[i].url}" alt=""/>${candidato.fotos[i].legenda}</div>`;
+                descricao.innerHTML = `Nome: ${candidato.nome}<br/>Partido: ${candidato.partido}<br/>Vice: ${candidato.vice}`
             }else{
                 fotosHtml +=`<div class="d-1-image"><img src="images/${candidato.fotos[i].url}" alt=""/>${candidato.fotos[i].legenda}</div>`;
+                descricao.innerHTML = `Nome: ${candidato.nome}<br/>Partido: ${candidato.partido}`
             }
         }
         lateral.innerHTML = fotosHtml;
@@ -77,6 +118,8 @@ function atualizaInterface(){
 
 //Função responsável por capturar e manipular os cliques em botões de números
 function clicou(n){
+    //reproduz beep ao teclar
+    reproduzDigitos();
     let elNumero = document.querySelector('.numero.pisca');
     if(elNumero !== null){
         elNumero.innerHTML = n;
@@ -95,11 +138,15 @@ function clicou(n){
 //Função botão BRANCO - seta o voto "Branco" para a etapa atual (permitido apenas se não houver números digitados ainda)
 function branco(n){
     if (numero === ''){
+        //monta a tela com os dados do candidato
         votoBranco = true;
         seuVotoPara.style.display = 'block';
         aviso.style.display = 'block';
         numeros.innerHTML = '';
         descricao.innerHTML = '<div class="aviso--grande pisca"> VOTO EM BRANCO</div>';
+        
+        //reproduz beep ao teclar
+        reproduzDigitos();
     }else{
         alert('Você só pode votar em branco se não tiver digitado nenhum numero!')
     }
@@ -107,13 +154,21 @@ function branco(n){
 
 // Função botão CORRIGE - limpa dados digitados na etapa atual
 function corrige(n){
+    
+    //reproduz beep ao teclar
+    reproduzCorrige();
+    
+    //limpa tela
     comecarEtapa();
 }
 
 // Função botão CONFIRMA - confirma voto inserido
 function confirma(n){
     let votoConfirmado = false;
-    let etapa = etapas[etapaAtual];
+    etapa = etapas[etapaAtual];
+    //Reproduz beep do teclado
+    //reproduz beep ao teclar
+    reproduzConfirma();
     
     //Se votar em branco, adiciona no vetor VOTOS o status BRANCO para a etapa.
     if (votoBranco === true){
@@ -138,7 +193,7 @@ function confirma(n){
                                 voto:candidato.nome
                 });
             }
-    
+
     // SE CONSEGUIR SALVAR O VOTO PARA A ETAPA ATUAL, VERFICA SE HÁ MAIS UMA ETAPA PARA CONTINUAR
     if (votoConfirmado){
         etapaAtual++;

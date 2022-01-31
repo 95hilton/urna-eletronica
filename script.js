@@ -6,16 +6,21 @@ let lateral = document.querySelector('.d-1-right');
 let numeros = document.querySelector('.d-1-3');
 let esquerda = document.querySelector('.d-1-left');
 
-/*Variavel de controle de ambiente*/
+//Variaveis de controle de ambiente
 let etapaAtual = 0;
 let numero ='';
-let votoBranco = true;
+let votoBranco = false;
+let votoNulo = false;
 let votos = [];
+let candidato = '';
+
+//Função para iniciar votação
 function comecarEtapa(){
     let etapa = etapas[etapaAtual];
     let numeroHtml ='';
     numero = '';
     votoBranco = false;
+    votoNulo = false;
 
     for (let i=0;i<etapa.numeros;i++){
         if (i === 0){
@@ -34,18 +39,19 @@ function comecarEtapa(){
     numeros.innerHTML = numeroHtml;
 }
 
+//Função para atualizar a tela e trazer o candidato digitado
 function atualizaInterface(){
     let etapa = etapas[etapaAtual];
-    let candidato =  etapa.candidatos.filter((item) => {
+    candidato =  etapa.candidatos.filter((item) => {
         if (item.numero === numero) {
             return true;
-        } else {
+        }else {
             return false;
         }
     });
 
     
-      
+    // Se encontrar um canditato com o número digitado, exibe os dados
    if(parseInt(candidato.length) > 0){
         candidato = candidato[0];
         seuVotoPara.style.display = 'block';
@@ -60,15 +66,16 @@ function atualizaInterface(){
             }
         }
         lateral.innerHTML = fotosHtml;
-        
+       // Se não encontrar um canditato com o número digitado, exibe VOTO NULO
     }else{
+        votoNulo = true;
         seuVotoPara.style.display = 'block';
-        descricao.innerHTML = '<div class="aviso--grande pisca"> VOTO NULO</div>';
+        descricao.innerHTML = '<div class="aviso--numero"> NUMERO ERRADO</div> <div class="aviso--grande pisca"> VOTO NULO</div>';
         aviso.style.display = 'block';
     }
 }
 
-
+//Função responsável por capturar e manipular os cliques em botões de números
 function clicou(n){
     let elNumero = document.querySelector('.numero.pisca');
     if(elNumero !== null){
@@ -85,9 +92,10 @@ function clicou(n){
     }
 }
 
+//Função botão BRANCO - seta o voto "Branco" para a etapa atual (permitido apenas se não houver números digitados ainda)
 function branco(n){
     if (numero === ''){
-        votoBranco == true;
+        votoBranco = true;
         seuVotoPara.style.display = 'block';
         aviso.style.display = 'block';
         numeros.innerHTML = '';
@@ -97,28 +105,41 @@ function branco(n){
     }
 }
 
+// Função botão CORRIGE - limpa dados digitados na etapa atual
 function corrige(n){
     comecarEtapa();
 }
 
+// Função botão CONFIRMA - confirma voto inserido
 function confirma(n){
-    console.log('apertou confirma')
     let votoConfirmado = false;
     let etapa = etapas[etapaAtual];
+    
+    //Se votar em branco, adiciona no vetor VOTOS o status BRANCO para a etapa.
     if (votoBranco === true){
         votoConfirmado = true;
         votos.push({
             etapa: etapas[etapaAtual].titulo,
-            voto:'branco'
+            voto:'BRANCO'
         });
-            }else if (numero.length === etapa.numeros){
-                votoConfirmado = true;
-                votos.push({
-                    etapa: etapas[etapaAtual].titulo,
-                    voto:numero
+        //Se votar em NULO, adiciona no vetor VOTOS o status NULO para a etapa.
+            }else if (votoNulo === true){
+                    votoConfirmado = true;
+                    votos.push({
+                        etapa: etapas[etapaAtual].titulo,
+                        voto: 'NULO'
+
+                });
+                //Se votar em VOTO VÁLIDO, adiciona no vetor VOTOS o NOME DO CANTIDATO para a etapa.
+                }else if (numero.length === etapa.numeros){
+                            votoConfirmado = true;
+                            votos.push({
+                                etapa: etapas[etapaAtual].titulo,
+                                voto:candidato.nome
                 });
             }
-
+    
+    // SE CONSEGUIR SALVAR O VOTO PARA A ETAPA ATUAL, VERFICA SE HÁ MAIS UMA ETAPA PARA CONTINUAR
     if (votoConfirmado){
         etapaAtual++;
         if(etapas[etapaAtual] !== undefined){
@@ -130,4 +151,5 @@ function confirma(n){
     }
 }
 
+//Inicia o programa de votação
 comecarEtapa();

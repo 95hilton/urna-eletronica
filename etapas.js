@@ -1,12 +1,13 @@
 let etapas =[ 
          {
-        titulo: "VEREADOR",
+        titulo: "VEREADOR(A)",
         numeros: 5,
         candidatos: [ 
              {
                 numero: '38111',
                 nome: "Christianne Varão",
                 partido: "PEN",
+                legenda: '38',
                 fotos: [
                     {url:"candidato-1.jpg", legenda: "Vereador"}
                 ]

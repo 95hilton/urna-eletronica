@@ -13,6 +13,15 @@ let etapas =[
                 ]
             },
             {
+                numero: '38112',
+                nome: "Marlene da Silva",
+                partido: "PAR",
+                legenda: '38',
+                fotos: [
+                    {url:"cv1.jpg", legenda: "Vereador"}
+                ]
+            },
+            {
                 numero: '44444',
                 nome: "Augusto Liberato",
                 partido: "PQP",
